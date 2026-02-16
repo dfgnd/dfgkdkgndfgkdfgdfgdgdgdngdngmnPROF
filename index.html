@@ -120,25 +120,31 @@ body {
 
 <script>
 const params = new URLSearchParams(window.location.search);
-const userId = params.get('id');
-const nickname = params.get('nickname');
-const balance = params.get('balance');
+const userId = params.get('user_id');
 
 if (userId) {
-    document.querySelector('#id div:nth-child(2)').textContent = 'ID TG: ' + userId;
+    fetch(`https://dfjgghdkgjdghgdfkjghndfjkg-default-rtdb.firebaseio.com/users/${userId}.json`)
+    .then(res => res.json())
+    .then(data => {
+        if (data) {
+            document.querySelector('#id div:nth-child(2)').textContent = 'ID TG: ' + userId;
+            document.querySelector('#nickname div:nth-child(2)').textContent = data.nickname || 'Нет никнейма';
+            const balance = data.balance !== undefined ? data.balance : 0;
+            document.getElementById('balance-display').innerHTML = '💰 Ваш баланс: <span style="font-size:24px;">' + balance + '₽</span>';
+        } else {
+            document.querySelector('#id div:nth-child(2)').textContent = 'ID TG: ' + userId;
+            document.querySelector('#nickname div:nth-child(2)').textContent = 'Нет данных';
+            document.getElementById('balance-display').innerHTML = '💰 Ваш баланс: <span style="font-size:24px;">0₽</span>';
+        }
+    })
+    .catch(() => {
+        document.querySelector('#id div:nth-child(2)').textContent = 'ID TG: ' + userId;
+        document.querySelector('#nickname div:nth-child(2)').textContent = 'Ошибка загрузки данных';
+        document.getElementById('balance-display').innerHTML = '💰 Ваш баланс: <span style="font-size:24px;">0₽</span>';
+    });
 } else {
     document.querySelector('#id div:nth-child(2)').textContent = 'ID TG: не указан';
-}
-
-if (nickname) {
-    document.querySelector('#nickname div:nth-child(2)').textContent = nickname;
-} else {
     document.querySelector('#nickname div:nth-child(2)').textContent = 'Нет никнейма';
-}
-
-if (balance !== null) {
-    document.getElementById('balance-display').innerHTML = '💰 Ваш баланс: <span style="font-size:24px;">' + balance + '₽</span>';
-} else {
     document.getElementById('balance-display').innerHTML = '💰 Ваш баланс: <span style="font-size:24px;">0₽</span>';
 }
 </script>
