@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Профиль с балансом денег</title>
+<style>
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    background-image: url("2313.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    overflow: hidden;
+}
+.top-image {
+    max-width: 200px;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    padding: 15px 25px;
+    border-radius: 15px;
+    margin: 5px 0;
+    max-width: 80%;
+    width: fit-content;
+    transition: transform 0.2s, background 0.2s;
+}
+.user-info:hover {
+    transform: scale(1.05);
+}
+.icon {
+    font-size: 36px;
+    margin-right: 15px;
+}
+#nickname div:nth-child(2),
+#username div:nth-child(2),
+#id div:nth-child(2) {
+    margin-left: 10px;
+}
+#nickname div:nth-child(2) {
+    color: #4998ff;
+}
+#username div:nth-child(2) {
+    color: #00ffe6;
+}
+#id div:nth-child(2) {
+    color: #00ff9d;
+}
+.balance-container {
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 5px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+.balance-value {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #268002ee;
+}
+.back-button {
+    padding: 15px 30px;
+    background-color: #610000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.back-button:hover {
+    background-color: #610000a4;
+    transform: translateX(calc(-50% - 10px));
+}
+</style>
+</head>
+<body>
+
+<img src="3123.png" alt="Аватар" class="top-image" />
+
+<div class="user-info" id="nickname">
+    <div class="icon">🕴</div>
+    <div>Загрузка...</div>
+</div>
+<div class="user-info" id="username">
+    <div class="icon">👾</div>
+    <div>Загрузка...</div>
+</div>
+<div class="user-info" id="id">
+    <div class="icon">🆔</div>
+    <div>Загрузка...</div>
+</div>
+
+<!-- Блок баланса -->
+<div class="balance-container">
+    <div class="balance-value" id="balance-display">💰 Ваш баланс: 0₽</div>
+</div>
+
+<a href="https://jdfhg321.github.io/gfdjfgk/" class="back-button">🔙 Назад</a>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const userId = params.get('id');
+const nickname = params.get('nickname');
+const balance = params.get('balance');
+
+if (userId) {
+    document.querySelector('#id div:nth-child(2)').textContent = 'ID TG: ' + userId;
+} else {
+    document.querySelector('#id div:nth-child(2)').textContent = 'ID TG: не указан';
+}
+
+if (nickname) {
+    document.querySelector('#nickname div:nth-child(2)').textContent = nickname;
+} else {
+    document.querySelector('#nickname div:nth-child(2)').textContent = 'Нет никнейма';
+}
+
+if (balance !== null) {
+    document.getElementById('balance-display').innerHTML = '💰 Ваш баланс: <span style="font-size:24px;">' + balance + '₽</span>';
+} else {
+    document.getElementById('balance-display').innerHTML = '💰 Ваш баланс: <span style="font-size:24px;">0₽</span>';
+}
+</script>
+</body>
+</html>
